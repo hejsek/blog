@@ -12,13 +12,13 @@
 		</thead>
 		<tr n:foreach="$articles as $article">
 			<td>
-				<a n:href="Article:detail, $article->id">{$article->name}</a>
+				<a n:href="Article:detail, $article->slug">{$article->name}</a>
 			</td>
 			<td>
-				<a n:href="Article:detail, $article->id">{$article->date|date:"j. n. Y"}</a>{* TODO: facebook date style *}
+				<a n:href="Article:detail, $article->slug">{$article->date|date:"j. n. Y"}</a>{* TODO: facebook date style *}
 			</td>
 			<td>
-				<a n:href="Article:detail, $article->id">{$article->author->name}</a>
+				<a n:href="Article:detail, $article->slug">{$article->author->name}</a>
 			</td>
 		</tr>
 	</table>

@@ -37,11 +37,56 @@ class ArticlePresenter extends BasePresenter
 
 
 	/**
-	 * @param int $id
+	 * @param string $slug
 	 */
-	public function renderDetail($id)
+	public function renderDetail($slug)
 	{
-		$this->template->article = $this->articleModel->findOneById($id);
+		$this->template->article = $this->articleModel->findOneById($slug);
+		$this->template->comments = $this->articleModel->findComments($this->template->article->id);
+	}
+
+
+
+	/**
+	 * @return Nette\Application\UI\Form
+	 */
+	public function createComponentCommentForm()
+	{
+		$form = new \Nette\Application\UI\Form;
+		$form->addProtection();
+
+		$form->addText('name', 'Name:')
+			->setRequired('Name must be filled');
+
+		$form->addText('email', 'E-mail:')
+			->addRule($form::EMAIL, 'Wrong e-mail format')
+			->setRequired('E-mail must be filled');
+
+		$form->addTextArea('content', 'Text:')
+			->setRequired('Text must be filled');
+
+		$form->addSubmit('send', 'Send');
+
+		$form->onSuccess[] = callback($this, 'processCommentForm');
+
+		return $form;
+	}
+
+
+
+	/**
+	 * @param Nette\Application\UI\Form $form
+	 */
+	public function processCommentForm(\Nette\Application\UI\Form $form)
+	{
+		$values = $form->getValues();
+		$this->articleModel->addComment(
+			$this->getParameter('id'),
+			$values->name,
+			$values->email,
+			$values->content
+		);
+		$this->redirect('this');
 	}
 
 
