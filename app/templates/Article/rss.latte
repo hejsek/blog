@@ -1,0 +1,17 @@
+
+<?xml version="1.0" encoding="utf-8">
+<rss version="2.0">
+	<channel>
+		<title>Blog</title>
+
+		<description>Blog description</description>
+
+		{foreach $article as $article}
+		<item>
+			<title>{$article->name}</title>
+
+			<description>{$article->prologue}</description>
+		</item>
+		{/foreach}
+	</channel>
+</rss>

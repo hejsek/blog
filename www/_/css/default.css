@@ -1,0 +1,75 @@
+html {
+	background: #F5F5F5;
+}
+
+body {
+	background: #fff;
+}
+
+.page-header {
+	margin-top: 0;
+	padding-top: 20px;
+}
+
+h1 a,
+h1 a:hover {
+	color: inherit;
+}
+
+.article,
+.content {
+	margin: 0 20px;
+}
+
+.article .date {
+	line-height: 40px;
+	margin: 10px 0;
+}
+
+.list td {
+	padding: 0;
+}
+
+.list tr:hover a {
+	color: #005580;
+	text-decoration: underline;
+}
+
+.list a {
+	display: block;
+	padding: 8px;
+}
+
+.comment {
+	margin-bottom: 30px;
+}
+
+.comment .bottom {
+	color: #777777;
+}
+
+.footer {
+	background-color: #F5F5F5;
+	border-top: 1px solid #E5E5E5;
+	margin-top: 20px;
+	padding: 30px 0;
+	text-align: center;
+}
+
+.footer p {
+	margin-bottom: 0;
+	color: #777;
+}
+
+.footer ul {
+	margin: 10px 0;
+}
+
+.footer ul li {
+	display: inline;
+	padding: 0 2px;
+}
+
+.footer ul li:first-child {
+	padding-left: 0;
+}

@@ -9,15 +9,11 @@ common:
 
 	php:
 		date.timezone: Europe/Prague
-		# zlib.output_compression: yes
 
 	nette:
-		application:
-			errorPresenter: Error
-
 		database:
-			dsn: 'mysql:host=localhost;dbname=test'
-			user:
+			dsn: 'mysql:host=localhost;dbname=blog'
+			user: 'root'
 			password:
 
 		session:
@@ -25,9 +21,14 @@ common:
 
 
 	services:
-		authenticator: Authenticator
-		routerFactory: RouterFactory
-		router: @routerFactory::createRouter
+		routerFactory:
+			class: RouterFactory
+
+		router:
+			factory: @routerFactory::createRouter
+
+		articleModel:
+			class: ArticleModel
 
 
 	factories:

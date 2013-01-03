@@ -1,0 +1,35 @@
+{block #content}
+<div class="content">
+	<h2>Archive</h2>
+
+	<table class="table table-hover list">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Published</th>
+				<th>Author</th>
+			</tr>
+		</thead>
+		<tr n:foreach="$articles as $article">
+			<td>
+				<a n:href="Article:detail, $article->id">{$article->name}</a>
+			</td>
+			<td>
+				<a n:href="Article:detail, $article->id">{$article->date|date:"j. n. Y"}</a>{* TODO: facebook date style *}
+			</td>
+			<td>
+				<a n:href="Article:detail, $article->id">{$article->author->name}</a>
+			</td>
+		</tr>
+	</table>
+
+	<ul class="pager">
+		<li n:class="previous, $paginator->isFirst() ? disabled">
+			<a n:href="this, page => $paginator->getPage() - 1">&larr; Newer</a>
+		</li>
+		<li n:class="next, $paginator->isLast() ? disabled">
+			<a  n:href="this, page => $paginator->getPage() + 1">Older &rarr;</a>
+		</li>
+	</ul>
+</div>
+{/block}
