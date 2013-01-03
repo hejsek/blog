@@ -1,8 +1,9 @@
 {block #content}
 
+	<p n:if="count($articles) == 0">No articles found</p>
 	<div class="article" n:foreach="$articles as $article">
 		<div class="clearfix">
-			<h2 class="pull-left"><a n:href="Article:detail, $article->id">{$article->name}</a></h2>
+			<h2 class="pull-left"><a n:href="Article:detail, $article->slug">{$article->name}</a></h2>
 			<div class="pull-right date"><em>{$article->date|date:"j. n. Y"}, by {$article->author->name}</em></div>{* TODO: facebook date style *}
 		</div>
 		{!$article->prologue}
