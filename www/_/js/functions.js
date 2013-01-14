@@ -5,6 +5,9 @@
 /* trigger when page is ready */
 $(document).ready(function (){
 
+	$('datepicker').datepicker();
+	$('.textarea').wysihtml5();
+
 	// your functions go here
 
 });

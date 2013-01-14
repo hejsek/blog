@@ -18,22 +18,33 @@ class RouterFactory
 	{
 		$router = new RouteList();
 
-		$router[] = new Route('rss.xml', array(
+		// backend
+		$router[] = $backend = new RouteList('backend');
+
+		$backend[] = new Route('backend/<presenter>/<action>[/<id>]', array(
+			'presenter' => 'Welcome',
+			'action' => 'default',
+		));
+
+		// frontend
+		$router[] = $frontend = new RouteList('frontend');
+
+		$frontend[] = new Route('rss.xml', array(
 			'presenter' => 'Article',
 			'action' => 'rss',
 		));
 
-		$router[] = new Route('archive', array(
+		$frontend[] = new Route('archive', array(
 			'presenter' => 'Article',
 			'action' => 'archive',
 		));
 
-		$router[] = new Route('article/<slug>', array(
+		$frontend[] = new Route('article/<slug>', array(
 			'presenter' => 'Article',
 			'action' => 'detail',
 		));
 
-		$router[] = new Route('<presenter>/<action>[/<id>]', array(
+		$frontend[] = new Route('<presenter>/<action>[/<id>]', array(
 			'presenter' => 'Article',
 			'action' => 'default',
 		));

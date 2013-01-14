@@ -1,5 +1,9 @@
 <?php
 
+namespace FrontendModule;
+
+
+
 /**
  * Homepage presenter.
  */
@@ -13,16 +17,16 @@ class ArticlePresenter extends BasePresenter
 	public $page = 1;
 
 	/**
-	 * @var ArticleModel
+	 * @var \ArticleModel
 	 */
 	private $articleModel;
 
 
 
 	/**
-	 * @param ArticleModel $articleModel
+	 * @param \ArticleModel $articleModel
 	 */
-	public function injectArticleModel(ArticleModel $articleModel)
+	public function injectArticleModel(\ArticleModel $articleModel)
 	{
 		$this->articleModel = $articleModel;
 	}
@@ -48,7 +52,7 @@ class ArticlePresenter extends BasePresenter
 
 
 	/**
-	 * @return Nette\Application\UI\Form
+	 * @return \Nette\Application\UI\Form
 	 */
 	public function createComponentCommentForm()
 	{
@@ -75,7 +79,16 @@ class ArticlePresenter extends BasePresenter
 
 
 	/**
-	 * @param Nette\Application\UI\Form $form
+	 * @param \Nette\Application\UI\Form
+	 */
+	public function Submitted(\Nette\Application\UI\Form $form)
+	{
+		$values = $form->getValues();
+	}
+
+
+	/**
+	 * @param \Nette\Application\UI\Form $form
 	 */
 	public function processCommentForm(\Nette\Application\UI\Form $form)
 	{
@@ -93,7 +106,7 @@ class ArticlePresenter extends BasePresenter
 
 	public function renderArchive()
 	{
-		$paginator = new Nette\Utils\Paginator;
+		$paginator = new \Nette\Utils\Paginator;
 		$paginator->setItemCount($this->articleModel->count());
 		$paginator->setItemsPerPage(10);
 		$paginator->setPage($this->page);

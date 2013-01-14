@@ -1,0 +1,7 @@
+{block #content}
+
+	<h1>Článek - {$article->name}</h1>
+
+	<p>{$article->name} - {$article->date} - {$article->author->name}</p>
+	{!$article->content}
+{/block}
