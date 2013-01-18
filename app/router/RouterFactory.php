@@ -22,8 +22,8 @@ class RouterFactory
 		$router[] = $backend = new RouteList('backend');
 
 		$backend[] = new Route('backend/<presenter>/<action>[/<id>]', array(
-			'presenter' => 'Welcome',
-			'action' => 'default',
+			'presenter' => 'Article',
+			'action' => 'list',
 		));
 
 		// frontend
