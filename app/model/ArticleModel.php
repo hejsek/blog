@@ -7,25 +7,6 @@ class ArticleModel extends BaseModel
 {
 
 	/**
-	 * @var \Nette\Http\Request
-	 */
-	private $httpRequest;
-
-
-
-	/**
-	 * @param Nette\Database\Connection $connection
-	 * @param Nette\Http\Request $httpRequest
-	 */
-	public function __construct(\Nette\Database\Connection $connection, \Nette\Http\Request $httpRequest)
-	{
-		parent::__construct($connection);
-		$this->httpRequest = $httpRequest;
-	}
-
-
-
-	/**
 	 * @return Nette\Database\Table\Selection
 	 */
 	public function findNewest()
@@ -105,35 +86,20 @@ class ArticleModel extends BaseModel
 
 
 	/**
-	 * @param $id
-	 * @return Nette\Database\Table\Selection
-	 */
-	public function findComments($id)
-	{
-		return $this->getConnection()
-			->table('comment')
-			->select('*')
-			->where('article_id', $id)
-			->order('date ASC');
-	}
-
-
-
-	/**
-	 * @param int $article
-	 * @param string $author
-	 * @param string $email
+	 * @param int $author
+	 * @param DateTime $date
+	 * @param string $name
+	 * @param bool $published
 	 * @param string $content
 	 */
-	public function addComment($article, $author, $email, $content)
+	public function create($author, $date, $name, $published, $content)
 	{
-		$this->getConnection()->query('INSERT INTO comment', array(
-			'article_id' => $article,
-			'author' => $author,
-			'email' => $email,
+		$this->getConnection()->query('INSERT INTO article', array(
+			'author_id' => $author,
+			'date' => $date,
+			'name' => $name,
+			'published' => $published,
 			'content' => $content,
-			'ip' => $this->httpRequest->getRemoteAddress(),
-			'date' => new \DateTime,
 		));
 	}
 

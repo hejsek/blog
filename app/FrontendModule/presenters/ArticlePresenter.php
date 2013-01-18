@@ -17,9 +17,21 @@ class ArticlePresenter extends BasePresenter
 	public $page = 1;
 
 	/**
-	 * @var \ArticleModel
-	 */
+ * @var \ArticleModel
+ */
 	private $articleModel;
+
+	/**
+	 * @var \CommentModel
+	 */
+	private $commentModel;
+
+
+
+	/**
+	 * @var \UserModel
+	 */
+	private $userModel;
 
 
 
@@ -29,6 +41,22 @@ class ArticlePresenter extends BasePresenter
 	public function injectArticleModel(\ArticleModel $articleModel)
 	{
 		$this->articleModel = $articleModel;
+	}
+
+
+	public function injectUserModel(\UserModel $userModel)
+	{
+		$this->userModel = $userModel;
+	}
+
+
+
+	/**
+	 * @param \CommentModel
+	 */
+	public function injectCommentModel(\CommentModel $commentModel)
+	{
+		$this->commentModel = $commentModel;
 	}
 
 
@@ -46,7 +74,7 @@ class ArticlePresenter extends BasePresenter
 	public function renderDetail($slug)
 	{
 		$this->template->article = $this->articleModel->findOneById($slug);
-		$this->template->comments = $this->articleModel->findComments($this->template->article->id);
+		$this->template->comments = $this->commentModel->findByArticle($this->template->article->id);
 	}
 
 
@@ -79,21 +107,12 @@ class ArticlePresenter extends BasePresenter
 
 
 	/**
-	 * @param \Nette\Application\UI\Form
-	 */
-	public function Submitted(\Nette\Application\UI\Form $form)
-	{
-		$values = $form->getValues();
-	}
-
-
-	/**
 	 * @param \Nette\Application\UI\Form $form
 	 */
 	public function processCommentForm(\Nette\Application\UI\Form $form)
 	{
 		$values = $form->getValues();
-		$this->articleModel->addComment(
+		$this->commentModel->create(
 			$this->getParameter('id'),
 			$values->name,
 			$values->email,

@@ -23,6 +23,11 @@ class ArticlePresenter extends BasePresenter
 	 */
 	private $articleModel;
 
+	/**
+	 * @var \UserModel
+	 */
+	private $userModel;
+
 
 
 	/**
@@ -31,6 +36,16 @@ class ArticlePresenter extends BasePresenter
 	public function injectArticleModel(\ArticleModel $articleModel)
 	{
 		$this->articleModel = $articleModel;
+	}
+
+
+
+	/**
+	 * @param \UserModel $userModel
+	 */
+	public function injectUserModel(\UserModel $userModel)
+	{
+		$this->userModel = $userModel;
 	}
 
 
@@ -81,12 +96,15 @@ class ArticlePresenter extends BasePresenter
 		$form->addText('date', 'Date:')
 			->setRequired('Date must be filled!');
 
+		$form->addSelect('author', 'Author:')
+			->setItems($this->userModel->getPairs());
+
 		$form->addCheckbox('published', 'Publish');
 
 		$form->addTextArea('content')
 			->addRule($form::MIN_LENGTH, 'Article must contain minimal %d characters', 100);
 
-		$form->addButton('save', 'Save');
+		$form->addSubmit('save', 'Save');
 
 		$form->onSuccess[] = callback($this, 'processForm');
 
@@ -100,6 +118,9 @@ class ArticlePresenter extends BasePresenter
 	 */
 	public function processForm(Form $form)
 	{
-		dump($form->getValues());
+		$values = $form->getValues();
+		$values['date'] = \Nette\DateTime::from($values->date);
+		$this->articleModel->create($values->author, $values->date,	$values->name,	$values->published,	$values->content);
 	}
+
 }

@@ -30,6 +30,13 @@ common:
 		articleModel:
 			class: ArticleModel
 
+		commentModel:
+			class: CommentModel
+
+		userModel:
+			class: UserModel
+
+
 
 	factories:
 
