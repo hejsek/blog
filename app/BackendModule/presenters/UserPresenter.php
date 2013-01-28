@@ -9,7 +9,7 @@ use Nette\Application\UI\Form;
 /**
  * @author Jakuy Heyduk <heyduk2@seznam.cz>
  */
-class LoginPresenter extends BasePresenter
+class UserPresenter extends BasePresenter
 {
 
 	/**
