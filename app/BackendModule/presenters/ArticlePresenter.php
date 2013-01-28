@@ -64,6 +64,17 @@ class ArticlePresenter extends BasePresenter
 
 
 	/**
+	 * @param $id
+	 */
+	public function actionDelete($id)
+	{
+		$this->template->article =  $this->articleModel->delete($id);
+		$this->redirect('list');
+	}
+
+
+
+	/**
 	 * @param int $id
 	 */
 	public function renderView($id)
@@ -79,6 +90,8 @@ class ArticlePresenter extends BasePresenter
 	public function renderEdit($id)
 	{
 		$this->template->article = $this->articleModel->findOneById($id);
+		$this->template->article = $this['form']->setDefaults($this->articleModel->findOneById($id));
+		$this->template->article = $id;
 	}
 
 
@@ -120,7 +133,13 @@ class ArticlePresenter extends BasePresenter
 	{
 		$values = $form->getValues();
 		$values['date'] = \Nette\DateTime::from($values->date);
-		$this->articleModel->create($values->author, $values->date,	$values->name,	$values->published,	$values->content);
+
+		if ((int) $this->getParameter('id')) {
+			$this->articleModel->edit($this->getParameter('id'), $values->author, $values->date, $values->name, $values->published, $values->content);
+		} else {
+			$this->articleModel->create($values->author, $values->date, $values->name, $values->published, $values->content);
+		}
+		$this->redirect('list');
 	}
 
 }

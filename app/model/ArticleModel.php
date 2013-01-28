@@ -103,4 +103,39 @@ class ArticleModel extends BaseModel
 		));
 	}
 
+
+
+	/**
+	 * @param int $id
+	 * @return Nette\Database\Table\Selection
+	 */
+	public function delete($id)
+	{
+		return $this->getConnection()->exec('DELETE FROM article WHERE id =?', $id);
+	}
+
+
+
+	/**
+	 * @param int $id
+	 * @param int $author
+	 * @param \DateTime $date
+	 * @param string $name
+	 * @param bool $published
+	 * @param string $content
+	 * @return int
+	 */
+	public function edit($id, $author, \DateTime $date, $name, $published, $content)
+	{
+		$values = array(
+			'author_id' => $author,
+			'date' => $date,
+			'name' => $name,
+			'published' => $published,
+			'content' => $content,
+		);
+
+		$this->getConnection()->exec('UPDATE article SET ? WHERE id = ?', $values, $id);
+	}
+
 }
