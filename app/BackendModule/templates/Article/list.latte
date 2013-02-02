@@ -1,0 +1,48 @@
+{block #content}
+<h1>Articles</h1>
+
+<table class="table table-hover table-bordered">
+	<thead>
+		<tr>
+			<th>Article Name</th>
+			<th>Author</th>
+			<th>Added</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr n:foreach="$articles as $article">
+			<td>{$article->name}</td>
+			<td>{$article->author->name}</td>
+			<td>{$article->date|date:"j. n. Y"}</td>
+			<td>
+				<a n:href="Article:view, $article->id" class="btn btn-mini">
+					<i class="icon-eye-open"></i>
+					View
+				</a>
+				<a n:href="Article:edit, $article->id" class="btn btn-mini">
+					<i class="icon-pencil"></i>
+					Edit
+				</a>
+				<a n:href="Article:delete, $article->id" class="btn btn-mini">
+					<i class="icon-trash"></i>
+					Delete
+				</a>
+				<a n:href="Article:viewComments, $article->id" class="btn btn-mini">
+					<i class="icon-edit"></i>
+					Comments
+				</a>
+			</td>
+		</tr>
+		<a n:href="User:form">detail produktu</a>
+	</tbody>
+</table>
+<ul class="pager">
+	<li n:class="previous, $paginator->isFirst() ? disabled">
+		<a n:href="this, page => $paginator->getPage() - 1">&larr; Newer</a>
+	</li>
+	<li n:class="next, $paginator->isLast() ? disabled">
+		<a  n:href="this, page => $paginator->getPage() + 1">Older &rarr;</a>
+	</li>
+</ul>
+{/block}
