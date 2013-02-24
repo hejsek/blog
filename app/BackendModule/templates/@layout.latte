@@ -29,17 +29,19 @@
 				<div class="container">
 					<a class="brand" href="#">Administration</a>
 					<ul class="nav">
-						<li><a n:href="User:form">Users</a></li>
+						<li><a n:href="Login:">Users</a></li>
 						<li class="active">
 							<a n:href="Article:list">Articles</a>
 						</li>
 					</ul>
 
 					<ul class="nav pull-right">
+
 						<li class="middle">Logged as</li>
 						<li class="dropdown left">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								Jakub Heydůček
+
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
@@ -47,7 +49,9 @@
 									<a href="#">Change password</a>
 								</li>
 								<li>
-									<a href="#">Logout</a>
+									<a n:href="Login:logout">Logout</a>
+									</p>
+
 								</li>
 							</ul>
 						</li>

@@ -19,6 +19,10 @@ common:
 		session:
 			expiration: 14 days
 
+		application:
+			errorPresenter: Error
+			catchExceptions: true
+
 
 	services:
 		routerFactory:
@@ -35,7 +39,6 @@ common:
 
 		userModel:
 			class: UserModel
-
 
 
 	factories:

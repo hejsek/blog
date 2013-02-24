@@ -27,10 +27,15 @@ class UserPresenter extends BasePresenter
 		$this->userModel = $userModel;
 	}
 
+
+
 	public function renderForm($name)
 	{
 		$this->template->form = $this->userModel->findByName($name);
 	}
+
+
+
 	/**
 	 * @return Form
 	 */
@@ -51,6 +56,11 @@ class UserPresenter extends BasePresenter
 		return $form;
 	}
 
+
+
+	/**
+	 * @param \Nette\Application\UI\Form $form
+	 */
 	public function processLoginForm(Form $form)
 	{
 		try {
@@ -58,9 +68,20 @@ class UserPresenter extends BasePresenter
 			$values = $form->getValues();
 
 			$user->login($values->username, $values->password);
-			$this->flashMessage('You have been logged in.', 'succes');
+			$this->flashMessage('You have been logged in.', 'success');
 		} catch(\AuthenticationException $e) {
 			$form->addError('Bad username or password');
+			$this->reditect('Login:');
 		}
 	}
+
+
+
+	public function actionLogout()
+	{
+		$this->getUser()->logout();
+		$this->flashMessage('Byl jste úspěšně odhlášen', 'success');
+		$this->redirect('Article:list');
+	}
+
 }

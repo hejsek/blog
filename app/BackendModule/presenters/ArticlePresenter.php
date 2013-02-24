@@ -8,6 +8,7 @@ use Nette\Application\UI\Form;
 
 /**
  * @author Jakuy Heyduk <heyduk2@seznam.cz>
+ * @User loggedIn
  */
 class ArticlePresenter extends BasePresenter
 {
@@ -59,6 +60,7 @@ class ArticlePresenter extends BasePresenter
 
 		$this->template->paginator = $paginator;
 		$this->template->articles = $this->articleModel->findAll($paginator->getLength(), $paginator->getOffset());
+
 	}
 
 
