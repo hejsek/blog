@@ -37,6 +37,24 @@ class UserModel extends BaseModel implements \Nette\Security\IAuthenticator
 			->fetch();
 	}
 
+	public function findAll($limit = NULL, $offset = NULL)
+	{
+		$table = $this->getConnection()
+			->table('users')
+			->select('*');
+
+		if ($limit !== NULL && $offset !== NULL) {
+			$table->limit($limit, $offset);
+		}
+
+		return $table;
+	}
+
+	public function count()	{
+		return $this->getConnection()
+			->table('users')
+			->count();
+	}
 
 
 	/**
@@ -59,17 +77,19 @@ class UserModel extends BaseModel implements \Nette\Security\IAuthenticator
 	 * @return Nette\Security\Identity|Nette\Security\IIdentity
 	 * @throws Nette\Security\AuthenticationException
 	 */
+	//TODO Refactor - New login system.
 	public function authenticate(array $loginArray)
 	{
 		list($username, $password) = $loginArray;
-		$row = $this->findByName($username);
-		if(!$row) {
-			throw new Nette\Security\AuthenticationException('User '.$username.' not found.');
+		$user = $this->findByName($username);
+		if(!$user) {
+			throw new Nette\Security\AuthenticationException('Bad login');
 		}
 
-		if($row->password !== $password)
-			throw new \Nette\Security\AuthenticationException('Invalid Password');
+		if($user->password !== $password)
+			throw new \Nette\Security\AuthenticationException('Bad password');
 
-		return new Nette\Security\Identity($row->id, NULL, $row->toArray());
+
+		return new Nette\Security\Identity($user->id, NULL, $user->toArray());
 		}
 }

@@ -1,4 +1,7 @@
 {block #content}
+<div class="alert alert-{$flash->type}" n:foreach="$flashes as $flash">
+	{$flash->message}
+</div>
 <h1>Articles</h1>
 
 <table class="table table-hover table-bordered">

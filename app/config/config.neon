@@ -21,7 +21,7 @@ common:
 
 		application:
 			errorPresenter: Error
-			catchExceptions: true
+			catchExceptions: false
 
 
 	services:
@@ -39,6 +39,9 @@ common:
 
 		userModel:
 			class: UserModel
+
+		cacheStorage:
+			class: Nette\Caching\Storages\DevNullStorage
 
 
 	factories:
